@@ -128,4 +128,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'boot'),
 ]
 
-AUTH_USER_MODEL = 'TeamBuilderApp.Accounts'
+AUTH_USER_MODEL = 'TeamBuilderApp.User'

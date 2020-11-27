@@ -39,7 +39,7 @@ class UserManager(BaseUserManager):
 
 
 
-class Accounts(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     email        = models.EmailField(verbose_name='email', max_length=60, unique=True)
     date_joined  = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     is_active    = models.BooleanField(default=True)   ## Everything within these comment tags
