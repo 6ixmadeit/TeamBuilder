@@ -55,11 +55,11 @@ class Users(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
-        return self.email + "," + self.first_name + "" + self.last_name # Returns the email, first name and
-                                                                        # last name of the user in CMD.
+        return self.first_name + " " + self.last_name # Returns the email, first name and
+                                                      # last name of the user.
 
     def has_perm(self, perm, obj=None): # Assigns the permissions that the user has
-        return "Admin:" + " " + self.is_admin
+        return self.is_admin
 
     def has_module_perms(self, app_label):
         return True
