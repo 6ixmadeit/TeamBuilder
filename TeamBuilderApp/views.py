@@ -18,7 +18,7 @@ def registration_view(request):
 			raw_password = form.cleaned_data.get("password1")
 			account      = authenticate(email=email, first_name=first_name, last_name=last_name, password=raw_password)
 			login(request, account)
-			return redirect('#')
+			return redirect('/main/mainpage')
 		else:
 			context['registration_form'] = form
 	else:
@@ -26,5 +26,5 @@ def registration_view(request):
 		context['registration_form'] = form
 	return render(request, 'accounts/register.html', context)
 
-def TeamCode(request):
+def main(request):
     return render(request, 'main/mainpage.html')
