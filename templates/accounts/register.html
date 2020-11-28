@@ -1,11 +1,30 @@
 {% extends 'base.html' %}
 
-{% block title %}TeamBuilder - Sign Up{% endblock %}
+{% block title %}TeamBuilder - Register{% endblock %}
 
 {% block content %}
-<form method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-	 <button type="submit" name="Create User">Register</button>
-</form>
-{% endblock %}
+<h1 style="text-align: center;">TeamBuilder</h1>
+<h2 style= "text-align: center;">Register</h2>
+<div class="d-flex justify-content-center">
+    <form method="post">{% csrf_token %}
+	    {% for field in registration_form %}
+            <p>
+        	    {{field.label_tag}}
+        	    {{field}}
+
+        	    {% if field.help_text %}
+                    <small style="color: grey;">{{field.help_text}}</small>
+        	    {% endif %}
+
+        	    {% for error in field.errors %}
+                    <p style="color: red;">{{error}}</p>
+        	    {% endfor %}
+            </p>
+	    {% endfor %}
+	    <button type="submit">Register</button>
+    </form>
+</div>
+<div style="text-align: center;">
+    <a href="/accounts/login">Already registered? Sign in here!</a>
+</div>
+{% endblock content %}
