@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class UserManager(BaseUserManager):
@@ -48,6 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)  ## changed by the superuser/admin.
     first_name   = models.CharField(max_length=50)
     last_name    = models.CharField(max_length=50)
+    uuid1        = models.UUIDField(default=uuid.uuid4, primary_key=True)
 
     objects = UserManager()
 
@@ -63,3 +65,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True
+

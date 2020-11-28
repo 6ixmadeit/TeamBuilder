@@ -25,3 +25,6 @@ def registration_view(request):
 		form = CustomUserCreationForm
 		context['registration_form'] = form
 	return render(request, 'accounts/register.html', context)
+
+def TeamCode(request):
+    return render(request, 'main/mainpage.html')
