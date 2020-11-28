@@ -13,8 +13,10 @@ def registration_view(request):
 		if form.is_valid():
 			form.save()
 			email        = form.cleaned_data.get('email')
+			first_name   = form.cleaned_data.get('first_name')
+			last_name    = form.cleaned_data.get('last_name')
 			raw_password = form.cleaned_data.get("password1")
-			account      = authenticate(email=email, password=raw_password)
+			account      = authenticate(email=email, first_name=first_name, last_name=last_name, password=raw_password)
 			login(request, account)
 			return redirect('#')
 		else:
