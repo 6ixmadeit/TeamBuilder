@@ -129,4 +129,5 @@ STATICFILES_DIRS = [
 ]
 
 AUTH_USER_MODEL = 'TeamBuilderApp.User'
-LOGIN_REDIRECT_URL = '/main/mainpage'
+LOGIN_REDIRECT_URL  = '/main/mainpage'
+LOGOUT_REDIRECT_URL = '/'

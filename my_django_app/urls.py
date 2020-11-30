@@ -18,7 +18,8 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
 
-from TeamBuilderApp.views import index, main , registration_view
+from TeamBuilderApp.views import index, main , registration_view, logout_user
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('accounts/login', auth_views.LoginView.as_view(template_name= 'accounts/login.html'), name='login'),
     path('accounts/register', registration_view, name='register'),
     path('main/mainpage', main, name='mainpage'),
+    path("logout", logout_user, name="logout")
 ]

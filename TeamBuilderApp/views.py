@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 from .forms import CustomUserCreationForm
 
 def index(request):
@@ -28,3 +29,8 @@ def registration_view(request):
 
 def main(request):
     return render(request, 'main/mainpage.html')
+
+def logout_user(request):
+	logout(request)
+	messages.info(request, "Logged out successfully")
+	return redirect('/')
