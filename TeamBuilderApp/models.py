@@ -38,7 +38,11 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+class Team(models.Model):
+    Name   = models.CharField(max_length=60) 
 
+    def __str__(self):
+        return self.Name
 
 class User(AbstractBaseUser, PermissionsMixin):
     email        = models.EmailField(verbose_name='email', max_length=60, unique=True)
@@ -50,6 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name   = models.CharField(max_length=50)
     last_name    = models.CharField(max_length=50)
     uuid1        = models.UUIDField(default=uuid.uuid4, primary_key=True)
+    team         = models.ForeignKey(Team, null=True , on_delete=models.CASCADE)
 
     objects = UserManager()
 
@@ -65,6 +70,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True
-
-class Team(models.Model):
-    Name   = models.CharField(max_length=60) 
