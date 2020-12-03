@@ -2,6 +2,7 @@
 
 <body>
     {% block content %}
+    {% if user.is_authenticated %}
     <div class="container-fluid bg-danger">    
         <h2 class="text-white" style="text-align: center;">TeamBuilder</h2>
         <nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -63,7 +64,9 @@
                     </div>
                     <div id="menu4" class="container tab-pane fade"><br>
                         <h3>Menu 4</h3>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="https://youtu.be/CaYP60lmN_U" allowfullscreen></iframe>
+                        </div>
                     </div>
                     <div id="menu5" class="container tab-pane fade"><br>
                     	<h3>Menu 5</h3>
@@ -72,5 +75,8 @@
             </div>
         </div>
     </div>
+    {% else %}
+    <a href="/accounts/login">Click here to log in</a>
+    {% endif %}
     {% endblock %}
 </body>

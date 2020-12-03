@@ -10,7 +10,6 @@
 		        <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                         <a class="nav-link" href="main/mainpage">{{user}}</a>
                     </li>
                 {% else %}    
