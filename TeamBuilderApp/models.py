@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name   = models.CharField(max_length=50)
     last_name    = models.CharField(max_length=50)
     uuid1        = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    team         = models.ForeignKey(Team, null=True , on_delete=models.CASCADE)
+    team         = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
 
     objects = UserManager()
 
