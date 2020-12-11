@@ -39,7 +39,7 @@ class UserManager(BaseUserManager):
         return user
 
 class Team(models.Model):
-    Name   = models.CharField(max_length=60) 
+    Name   = models.CharField(max_length=60)
 
     def __str__(self):
         return self.Name
@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name   = models.CharField(max_length=50)
     last_name    = models.CharField(max_length=50)
     uuid1        = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    team         = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
+    team         = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL)
 
     objects = UserManager()
 
@@ -70,3 +70,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True
+
+class Video(models.Model):
+    Name       = models.CharField(max_length=60)
+    Video      = models.FileField(upload_to='videos/')
+    team       = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)

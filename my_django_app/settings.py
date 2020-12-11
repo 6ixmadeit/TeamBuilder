@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     #Own
     'TeamBuilderApp',
+
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,7 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = 'TeamBuilderApp.User'
 LOGIN_REDIRECT_URL  = '/main/mainpage'
 LOGOUT_REDIRECT_URL = '/'
+
+MEDIA_URL ='/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
