@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Team, Video, Fixture
+from .models import *
 
 class UserAdmin(admin.ModelAdmin):
 	list_display  = ('first_name', 'last_name', 'email', 'team')
@@ -16,3 +16,5 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Team)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Fixture)
+admin.site.register(TeamChatRoom)
+admin.site.register(TeamChatMessage)
