@@ -89,4 +89,4 @@ class TeamChatRoom(models.Model):
 
 
 class TeamChatMessage(models.Model):
-    room = models.ForeignKey(TeamChatRoom, null=True, on_delete=models.CASCADE
+    room = models.ForeignKey(TeamChatRoom, null=True, on_delete=models.CASCADE)
