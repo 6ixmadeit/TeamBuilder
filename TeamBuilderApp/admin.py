@@ -10,7 +10,7 @@ class VideoAdmin(admin.ModelAdmin):
     search_fields = ('Name', 'team')
 
 class FixtureAdmin(admin.ModelAdmin):
-        pass
+    search_fields = ('Name', 'team')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Team)
