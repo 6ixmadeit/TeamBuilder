@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .forms import CustomUserCreationForm
+from .models import Video
 
 def index(request):
 	return render(request, 'index.html')
@@ -34,3 +35,7 @@ def logout_user(request):
 	logout(request)
 	messages.info(request, "Logged out successfully")
 	return redirect('/')
+
+def display(request):
+    videos = Video.objects.all
+    return render(request, 'main/mainpage.html', {'videos':videos})

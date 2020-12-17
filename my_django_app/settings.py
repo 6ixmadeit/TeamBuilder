@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     #Own
     'TeamBuilderApp',
+    'channels',
 
 ]
 
@@ -50,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',    
 ]
 
 ROOT_URLCONF = 'my_django_app.urls'
@@ -136,3 +137,5 @@ LOGOUT_REDIRECT_URL = '/'
 MEDIA_URL ='/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+ASGI_APPLICATION = "TeamBuilderApp.asgi.application"

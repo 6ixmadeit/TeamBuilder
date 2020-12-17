@@ -51,10 +51,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_admin     = models.BooleanField(default=False)  ## define the permissions
     is_staff     = models.BooleanField(default=False)  ## that the user will have unless
     is_superuser = models.BooleanField(default=False)  ## changed by the superuser/admin.
+    is_coach     = models.BooleanField(default=False)
+    is_player    = models.BooleanField(default=False)
+    is_parent    = models.BooleanField(default=False)
     first_name   = models.CharField(max_length=50)
     last_name    = models.CharField(max_length=50)
     uuid1        = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    team         = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL)
+    team         = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL) # Set to null when assigned team is deleted
 
     objects = UserManager()
 
@@ -76,3 +79,7 @@ class Video(models.Model):
     Video      = models.FileField(upload_to='videos/')
     team       = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Fixture(models.Model):
+    Name = models.CharField(max_length=100)
+    team = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)

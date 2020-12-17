@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Team, Video
+from .models import User, Team, Video, Fixture
 
 class UserAdmin(admin.ModelAdmin):
 	list_display  = ('first_name', 'last_name', 'email', 'team')
@@ -9,6 +9,10 @@ class VideoAdmin(admin.ModelAdmin):
     list_display  = ('Name', 'team', 'created_at')
     search_fields = ('Name', 'team')
 
+class FixtureAdmin(admin.ModelAdmin):
+        pass
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Team)
 admin.site.register(Video, VideoAdmin)
+admin.site.register(Fixture)

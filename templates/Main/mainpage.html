@@ -72,9 +72,11 @@
                 </div>
                 <div id="menu4" class="container tab-pane fade"><br>
                     <h3>Game footage</h3>
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://youtu.be/CaYP60lmN_U" allowfullscreen></iframe>
-                    </div>
+                    {% for video in videos.all %}
+                    <video width="320" height="240" controls>
+                        <source src="{{ video.video.url }}" type="video/mp4">
+                    </video>
+                    {% endfor %}
                 </div>
                 <div id="menu5" class="container tab-pane fade"><br>
                 	<h3>Fixtures</h3>
