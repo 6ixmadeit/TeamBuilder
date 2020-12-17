@@ -83,3 +83,11 @@ class Video(models.Model):
 class Fixture(models.Model):
     Name = models.CharField(max_length=100)
     team = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
+
+class TeamChatRoom(models.Model):
+    team = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
+
+    Team.__str__()
+
+class TeamChatMessage(models.Model):
+    pass
