@@ -87,7 +87,6 @@ class Fixture(models.Model):
 class TeamChatRoom(models.Model):
     team = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
 
-    Team.__str__()
 
 class TeamChatMessage(models.Model):
     pass
