@@ -1,6 +1,6 @@
 from django.db import models
 import uuid
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group
 
 class UserManager(BaseUserManager):
 
@@ -77,16 +77,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Video(models.Model):
     Name       = models.CharField(max_length=60)
     Video      = models.FileField(upload_to='videos/')
-    team       = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
+    team       = models.ForeignKey(Team, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Fixture(models.Model):
     Name = models.CharField(max_length=100)
-    team = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
 class TeamChatRoom(models.Model):
-    team = models.ForeignKey(Team, null=True, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
 
 class TeamChatMessage(models.Model):
-    room = models.ForeignKey(TeamChatRoom, null=True, on_delete=models.CASCADE)
+    room = models.ForeignKey(TeamChatRoom, on_delete=models.CASCADE)
