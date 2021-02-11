@@ -23,11 +23,5 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name="index"),
-
-    #Django Auth
-    path('accounts/login', auth_views.LoginView.as_view(template_name= 'accounts/login.html'), name='login'),
-    path('accounts/register', registration_view, name='register'),
-    path('main/mainpage', main, name='mainpage'),
-    path("logout", logout_user, name="logout")
+    path('Team/', include('TeamBuilderApp.urls')),
 ]

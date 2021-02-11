@@ -25,7 +25,7 @@ SECRET_KEY = '*d(&s4wk#o4%t$9@0*(3ku+sw!_ddn4lop&9e^62t2jg5z7oj_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #Own
-    'TeamBuilderApp',
+    'TeamBuilderApp', 
     'channels',
+    'django_extensions',
 
 ]
 
@@ -131,11 +132,20 @@ STATICFILES_DIRS = [
 ]
 
 AUTH_USER_MODEL = 'TeamBuilderApp.User'
-LOGIN_REDIRECT_URL  = '/main/mainpage'
-LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL  = 'room.html'
+LOGOUT_REDIRECT_URL = '/Team'
 
 MEDIA_URL ='/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 ASGI_APPLICATION = "my_django_app.asgi.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}

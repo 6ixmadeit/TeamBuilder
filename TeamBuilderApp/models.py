@@ -1,6 +1,8 @@
-from django.db import models
+from django.db import models, migrations
 import uuid
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django_extensions.db.fields import RandomCharField
+from .utils import generate_code
 
 class UserManager(BaseUserManager):
 
@@ -38,26 +40,40 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class Team(models.Model):
-    Name   = models.CharField(max_length=60)
+    Name    = models.CharField(max_length=60)
+    code    = models.CharField(max_length=6, blank=True)
 
     def __str__(self):
         return self.Name
 
+    def save(self, *args, **kwargs):
+        if self.code == "":
+            code = generate_code()
+            self.code = code
+        super().save(*args, **kwargs)
+        
 class User(AbstractBaseUser, PermissionsMixin):
+
+    USER_CHOICES = [
+        ('CO', 'Coach'),
+        ('PL', 'Parent'),
+        ('PA', 'Player'),
+        ]
+
     email        = models.EmailField(verbose_name='email', max_length=60, unique=True)
     date_joined  = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     is_active    = models.BooleanField(default=True)   ## Everything within these comment tags
     is_admin     = models.BooleanField(default=False)  ## define the permissions
     is_staff     = models.BooleanField(default=False)  ## that the user will have unless
     is_superuser = models.BooleanField(default=False)  ## changed by the superuser/admin.
-    is_coach     = models.BooleanField(default=False)
-    is_player    = models.BooleanField(default=False)
     is_parent    = models.BooleanField(default=False)
     first_name   = models.CharField(max_length=50)
     last_name    = models.CharField(max_length=50)
     uuid1        = models.UUIDField(default=uuid.uuid4, primary_key=True)
     team         = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL) # Set to null when assigned team is deleted
+    user_type    = models.CharField(choices=USER_CHOICES, default='CO', max_length=20)
 
     objects = UserManager()
 
@@ -81,12 +97,14 @@ class Video(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Fixture(models.Model):
-    Name = models.CharField(max_length=100)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    Name           = models.CharField(max_length=100, blank=True)
+    team1          = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="team1")
+    team2          = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="team2")
+    address_1      = models.CharField(max_length=100, null=True)
+    address_2      = models.CharField(max_length=100, null=True, blank=True)
+    city           = models.CharField(max_length=50, null=True)
+    zip_code       = models.CharField(max_length=10, null=True)
+    date           = models.DateTimeField(null=True)
 
-class TeamChatRoom(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-
-
-class TeamChatMessage(models.Model):
-    room = models.ForeignKey(TeamChatRoom, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.Name

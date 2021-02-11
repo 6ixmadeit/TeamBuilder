@@ -10,11 +10,10 @@ class VideoAdmin(admin.ModelAdmin):
     search_fields = ('Name', 'team')
 
 class FixtureAdmin(admin.ModelAdmin):
-    search_fields = ('Name', 'team')
+	list_display = ('team1', 'team2', 'date')
+	search_fields = ('team1', 'team2', 'zip_code')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Team)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Fixture)
-admin.site.register(TeamChatRoom)
-admin.site.register(TeamChatMessage)
