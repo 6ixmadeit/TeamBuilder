@@ -1,7 +1,6 @@
 from django.db import models, migrations
 import uuid
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django_extensions.db.fields import RandomCharField
 from .utils import generate_code  # A function I created in utils.py, creates a random alphanumeric string
 
 class UserManager(BaseUserManager):
@@ -63,6 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('PA', 'Player'),
         ]
 
+    User_ID      = models.UUIDField(default=uuid.uuid4, primary_key=True)
     email        = models.EmailField(verbose_name='email', max_length=60, unique=True)
     date_joined  = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     is_active    = models.BooleanField(default=True)   ## Everything within these comment tags
@@ -72,7 +72,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_coach     = models.BooleanField(default=False)
     first_name   = models.CharField(max_length=50)
     last_name    = models.CharField(max_length=50)
-    uuid1        = models.UUIDField(default=uuid.uuid4, primary_key=True)
     team         = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL) # Set to null when assigned team is deleted
     user_type    = models.CharField(choices=USER_CHOICES, default='CO', max_length=20) # Useful for when the app wants to identify who has certain permissions
 

@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     #Own
     'TeamBuilderApp', 
     'channels',
-    'django_extensions',
 
 ]
 
