@@ -72,7 +72,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_coach     = models.BooleanField(default=False)
     first_name   = models.CharField(max_length=50)
     last_name    = models.CharField(max_length=50)
-    team         = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL) # Set to null when assigned team is deleted
+    team         = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL) # Ensures that the user isn't deleted when a team is deleted
     user_type    = models.CharField(choices=USER_CHOICES, default='CO', max_length=20) # Useful for when the app wants to identify who has certain permissions
 
     objects = UserManager()

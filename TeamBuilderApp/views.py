@@ -4,7 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from .forms import CustomUserCreationForm, FixtureForm
-from .models import Video, Team, User
+from .models import Video, Team, User, Fixture
 from .decorators import allowed_users
 
 
@@ -56,6 +56,5 @@ def logout_user(request):
 
 def room(request, room_name):
 	room_name = Team.objects.values('code')
-	return render(request, 'Team/room.html', {
-        'room_name': room_name
-    })
+	fixtureDisplay = Fixture.objects.all()
+	return render(request, 'Team/room.html', {'room_name': room_name, 'fixture': fixtureDisplay })

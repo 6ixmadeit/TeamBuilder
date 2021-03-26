@@ -26,8 +26,8 @@
             </ul>
             <div class="tab-content">
                 <div id="home" class="container tab-pane active"><br>
-                        <textarea id="chat-log" cols="87" rows="20"></textarea><br>
-                        <input id="chat-message-input" type="text" size="85"><br>
+                        <textarea style="resize:none" cols="75" rows="20"></textarea><br>
+                        <input id="chat-message-input" type="text" size="72"><br>
     					<input id="chat-message-submit" type="button" value="Send">
     					<script>
         					const roomName = JSON.parse(document.getElementById({room_name}).textContent);
@@ -105,16 +105,22 @@
                     {% if request.user.is_coach %}
                     <h3>Add navbar with "+" symbol</h3>
                     {% endif %}
+                    {% for fixtures in fixture %}
                 	<div class="card">
   						<div class="card-header">
-    						Featured
+    						{{fixtures.Name}}
   						</div>
   						<div class="card-body">
-    						<h5 class="card-title">{{user.team.Fixture}}</h5>
-    						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    						<a href="#" class="btn btn-primary">Go somewhere</a>
+    						<h5 class="card-title">{{fixtures.date}}</h5>
+    						<p class="card-text">
+                                {{fixtures.address_1}}, <br>
+                                {{fixtures.city}}, <br>
+                                {{fixtures.zip_code}}
+                            </p>
   						</div>
 					</div>
+                    <br>
+                    {% endfor %}
                 </div>
             </div>
         </div>
