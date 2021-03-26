@@ -1,0 +1,37 @@
+{% extends 'Team/base.html' %}
+
+{% block title %}TeamBuilder | Sports team management, made simple.{% endblock %}
+
+<body>
+	{% block content %}
+        <div class = "container-fluid bg-danger">
+            <h1 class="text-white" style="text-align: center; font-family: Georgia;">TeamBuilder</h1>
+	        <nav class="navbar navbar-expand-sm bg-light navbar-light">
+		        <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="room">{{user}}</a>
+                    </li>
+                {% else %}    
+                    <li class="nav-item">
+                        <a class="nav-link" href="login">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register">Sign Up</a>
+                    </li>
+                {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <p>Hello</p>
+                </div>
+                <div class="col-sm">
+                    <p>Hi</p>
+                </div>
+            </div>
+        </div>
+	{% endblock %}
+</body>

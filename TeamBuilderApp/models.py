@@ -2,7 +2,7 @@ from django.db import models, migrations
 import uuid
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django_extensions.db.fields import RandomCharField
-from .utils import generate_code
+from .utils import generate_code  # A function I created in utils.py, creates a random alphanumeric string
 
 class UserManager(BaseUserManager):
 
@@ -19,6 +19,7 @@ class UserManager(BaseUserManager):
                first_name = first_name,
                last_name  = last_name,
             )
+
 
         user.set_password(password)
         user.save(using=self._db)
@@ -48,12 +49,12 @@ class Team(models.Model):
     def __str__(self):
         return self.Name
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):   # Saves the generated Team Code to the database
         if self.code == "":
             code = generate_code()
             self.code = code
         super().save(*args, **kwargs)
-        
+
 class User(AbstractBaseUser, PermissionsMixin):
 
     USER_CHOICES = [
@@ -68,17 +69,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_admin     = models.BooleanField(default=False)  ## define the permissions
     is_staff     = models.BooleanField(default=False)  ## that the user will have unless
     is_superuser = models.BooleanField(default=False)  ## changed by the superuser/admin.
-    is_parent    = models.BooleanField(default=False)
+    is_coach     = models.BooleanField(default=False)
     first_name   = models.CharField(max_length=50)
     last_name    = models.CharField(max_length=50)
     uuid1        = models.UUIDField(default=uuid.uuid4, primary_key=True)
     team         = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL) # Set to null when assigned team is deleted
-    user_type    = models.CharField(choices=USER_CHOICES, default='CO', max_length=20)
+    user_type    = models.CharField(choices=USER_CHOICES, default='CO', max_length=20) # Useful for when the app wants to identify who has certain permissions
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name'] # The account cannot be created if they do not give their first/last names
 
     def __str__(self):
         return self.first_name + " " + self.last_name # Returns the email, first name and
@@ -98,8 +99,7 @@ class Video(models.Model):
 
 class Fixture(models.Model):
     Name           = models.CharField(max_length=100, blank=True)
-    team1          = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="team1")
-    team2          = models.ForeignKey(Team, on_delete=models.CASCADE, related_name="team2")
+    team           = models.ManyToManyField(Team)
     address_1      = models.CharField(max_length=100, null=True)
     address_2      = models.CharField(max_length=100, null=True, blank=True)
     city           = models.CharField(max_length=50, null=True)

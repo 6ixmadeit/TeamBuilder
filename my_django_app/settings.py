@@ -132,7 +132,7 @@ STATICFILES_DIRS = [
 ]
 
 AUTH_USER_MODEL = 'TeamBuilderApp.User'
-LOGIN_REDIRECT_URL  = 'room.html'
+LOGIN_REDIRECT_URL  = '<str:room_name>/'
 LOGOUT_REDIRECT_URL = '/Team'
 
 MEDIA_URL ='/media/'
