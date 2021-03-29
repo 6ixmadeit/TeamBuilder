@@ -107,3 +107,24 @@ class Fixture(models.Model):
 
     def __str__(self):
         return self.Name
+
+    class Meta:
+            ordering = ['date']
+
+class Evaluation(models.Model):
+    Name     = models.CharField(max_length=100)
+    team     = models.ForeignKey(Team, on_delete=models.CASCADE)
+    date     = models.DateField(auto_now=False, auto_now_add=False)
+    Points   = models.CharField(max_length=2)
+    Assists  = models.CharField(max_length=2)
+    Rebounds = models.CharField(max_length=2)
+    Blocks   = models.CharField(max_length=2)
+    Steals   = models.CharField(max_length=2)
+    TOV      = models.CharField(max_length=2)
+    TPT      = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.Name
+    
+    class Meta:
+        ordering = ['date']

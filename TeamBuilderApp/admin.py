@@ -13,7 +13,11 @@ class FixtureAdmin(admin.ModelAdmin):
 	list_display = ('team1', 'team2', 'date')
 	search_fields = ('team1', 'team2', 'zip_code')
 
+class EvalAdmin(admin.ModelAdmin):
+	list_display = ('Name', 'date')
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Team)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Fixture)
+admin.site.register(Evaluation, EvalAdmin)
